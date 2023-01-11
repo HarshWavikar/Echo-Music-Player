@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EchoMusicPlayer</string>
+    <string name="music_player">Music player</string>
 </resources>
