@@ -44,19 +44,24 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.allSongs -> {
-
-                    Toast.makeText(this@MainActivity, "All songs clicked", Toast.LENGTH_SHORT)
-                        .show()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, AllSongsFragment()).commit()
+                    drawerLayout.closeDrawers()
                 }
                 R.id.favourites -> {
-                    Toast.makeText(this@MainActivity, "Favourites clicked", Toast.LENGTH_SHORT)
-                        .show()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, FavouritesFragment()).commit()
+                    drawerLayout.closeDrawers()
                 }
                 R.id.settings -> {
-                    Toast.makeText(this@MainActivity, "Settings clicked", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, SettingsFragment()).commit()
+                    drawerLayout.closeDrawers()
                 }
                 R.id.aboutUs -> {
-                    Toast.makeText(this@MainActivity, "About Us clicked", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, AboutUsFragment()).commit()
+                    drawerLayout.closeDrawers()
                 }
             }
             return@setNavigationItemSelectedListener true
