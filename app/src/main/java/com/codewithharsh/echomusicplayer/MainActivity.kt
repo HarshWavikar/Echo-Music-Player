@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var frame: FrameLayout
     private lateinit var navigationView: NavigationView
 
+    var previousMenuItem : MenuItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         frame = findViewById(R.id.frame)
         navigationView = findViewById(R.id.navigationView)
         setUpToolBar()
-
+        openAllSongs()
         val actionBarDrawerToggle = ActionBarDrawerToggle(
             this@MainActivity,
             drawerLayout,
@@ -44,28 +46,37 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.allSongs -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, AllSongsFragment()).commit()
+                    openAllSongs()
                     drawerLayout.closeDrawers()
                 }
                 R.id.favourites -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, FavouritesFragment()).commit()
+                    supportActionBar?.title = "Favourites"
                     drawerLayout.closeDrawers()
                 }
                 R.id.settings -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, SettingsFragment()).commit()
+                    supportActionBar?.title = "Settings"
                     drawerLayout.closeDrawers()
                 }
                 R.id.aboutUs -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, AboutUsFragment()).commit()
+                    supportActionBar?.title = "About Us"
                     drawerLayout.closeDrawers()
                 }
             }
             return@setNavigationItemSelectedListener true
         }
+    }
+
+    private fun openAllSongs() {
+        val fragment = AllSongsFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame, fragment).commit()
+        supportActionBar?.title = "All Songs"
     }
 
     fun setUpToolBar() {
@@ -81,5 +92,13 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        when(supportFragmentManager.findFragmentById(R.id.frame)){
+            !is AllSongsFragment -> openAllSongs()
+            else -> super.onBackPressed()
+        }
+
     }
 }
