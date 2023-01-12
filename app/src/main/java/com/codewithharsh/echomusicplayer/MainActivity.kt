@@ -15,7 +15,7 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout : DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var coordinatorLayout: CoordinatorLayout
     private lateinit var toolbar: Toolbar
     private lateinit var frame: FrameLayout
@@ -29,25 +29,41 @@ class MainActivity : AppCompatActivity() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
         toolbar = findViewById(R.id.toolbar)
         frame = findViewById(R.id.frame)
-        navigationView= findViewById(R.id.navigationView)
+        navigationView = findViewById(R.id.navigationView)
         setUpToolBar()
 
-        val actionBarDrawerToggle = ActionBarDrawerToggle(this@MainActivity, drawerLayout, R.string.open_drawer, R.string.close_drawer)
+        val actionBarDrawerToggle = ActionBarDrawerToggle(
+            this@MainActivity,
+            drawerLayout,
+            R.string.open_drawer,
+            R.string.close_drawer
+        )
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
         navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.allSongs -> { Toast.makeText(this@MainActivity,"All songs clicked", Toast.LENGTH_SHORT).show() }
-                R.id.favourites -> { Toast.makeText(this@MainActivity,"Favourites clicked", Toast.LENGTH_SHORT).show() }
-                R.id.settings -> { Toast.makeText(this@MainActivity,"Settings clicked", Toast.LENGTH_SHORT).show() }
-                R.id.aboutUs -> { Toast.makeText(this@MainActivity,"About Us clicked", Toast.LENGTH_SHORT).show() }
+            when (it.itemId) {
+                R.id.allSongs -> {
+
+                    Toast.makeText(this@MainActivity, "All songs clicked", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                R.id.favourites -> {
+                    Toast.makeText(this@MainActivity, "Favourites clicked", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                R.id.settings -> {
+                    Toast.makeText(this@MainActivity, "Settings clicked", Toast.LENGTH_SHORT).show()
+                }
+                R.id.aboutUs -> {
+                    Toast.makeText(this@MainActivity, "About Us clicked", Toast.LENGTH_SHORT).show()
+                }
             }
             return@setNavigationItemSelectedListener true
         }
     }
 
-    fun setUpToolBar(){
+    fun setUpToolBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "All Songs"
         supportActionBar?.setHomeButtonEnabled(true)
@@ -56,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             drawerLayout.openDrawer(GravityCompat.START)
         }
         return super.onOptionsItemSelected(item)
