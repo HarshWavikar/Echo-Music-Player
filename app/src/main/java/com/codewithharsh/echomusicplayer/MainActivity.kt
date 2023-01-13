@@ -44,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
 
         navigationView.setNavigationItemSelectedListener {
+
+            if(previousMenuItem != null){
+                previousMenuItem?.isChecked = false
+            }
+
+            it.isCheckable = true
+            it.isChecked = true
+            previousMenuItem = it
+
             when (it.itemId) {
                 R.id.allSongs -> {
                     openAllSongs()
@@ -77,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frame, fragment).commit()
         supportActionBar?.title = "All Songs"
+        navigationView.setCheckedItem(R.id.allSongs)
     }
 
     fun setUpToolBar() {
